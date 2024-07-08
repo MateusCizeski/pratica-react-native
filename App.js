@@ -1,18 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, Button, Modal } from 'react-native';
+import Detalhes from './src/components/Detalhes';
 
 export default function App() {
-  const [contador, setContador] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    console.log('montou')
-  }, [contador])
+  function abrirModal() {
+    setModalVisible(true)
+  }
 
+  function sairModal() {
+    setModalVisible(false)
+  }
+  
   return (
     <View style={styles.container}>
-      <Button title='Aumentar' onPress={() => setContador(contador + 1)} />
-        <Text style={{ fontSize: 30 }}>{contador}</Text>
-      <Button title='Diminuir' onPress={() => setContador(contador - 1)} />
+      <Button title="Acessar" onPress={ abrirModal } />
+
+      <Modal transparent={true} animationType='slide' visible={modalVisible}>
+          <Detalhes fechar={ sairModal }/>
+      </Modal>
     </View>
   );
 }
