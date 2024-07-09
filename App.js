@@ -1,33 +1,23 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, Button, Modal } from 'react-native';
-import Detalhes from './src/components/Detalhes';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import Home from './src/components/pages/Home';
+import Sobre from './src/components/pages/Sobre';
+import Contato from './src/components/pages/Contato';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [modalVisible, setModalVisible] = useState(false);
-
-  function abrirModal() {
-    setModalVisible(true)
-  }
-
-  function sairModal() {
-    setModalVisible(false)
-  }
-  
   return (
-    <View style={styles.container}>
-      <Button title="Acessar" onPress={ abrirModal } />
+    <NavigationContainer>
+      <Stack.Navigator>
 
-      <Modal transparent={true} animationType='slide' visible={modalVisible}>
-          <Detalhes fechar={ sairModal }/>
-      </Modal>
-    </View>
-  );
+        <Stack.Screen name='Home' component={Home}/>
+        <Stack.Screen name='Sobre' component={Sobre}/>
+        <Stack.Screen name='Contato' component={Contato}/>
+
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});
