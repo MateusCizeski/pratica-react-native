@@ -1,60 +1,43 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import StackRoutes from './stackRoutes';
 import Sobre from '../components/pages/Sobre';
 import Contato from '../components/pages/Contato';
+import CustomDrawer from '../components/CustomDrawer';
 
-import Feather from 'react-native-vector-icons/Feather'
+const Drawer = createDrawerNavigator();
 
-const Tab = createBottomTabNavigator();
-
-export default function Routes() {
-  return (
-    <Tab.Navigator
+export default function Routes(){
+  return(
+    <Drawer.Navigator 
+      drawerContent={CustomDrawer}
       screenOptions={{
         headerShown: false,
-        tabBarHideOnKeyboard: true,
-        tabBarShowLabel: false,
-        tabBarActiveTintColor: '#fff',
-        tabBarStyle: {
-          backgroundColor: '#202225',
-          borderTopWidth: 0
-        }
+        drawerActiveBackgroundColor: '#00d1e4',
+        drawerActiveTintColor: '#fff',
+        drawerInactiveBackgroundColor: '#f1f1f1',
+        drawerInactiveTintColor: '#000'
       }}
     >
-
-      <Tab.Screen 
-        name='Home'
+      <Drawer.Screen
+        name="HomeStack"
         component={StackRoutes}
         options={{
-          tabBarIcon: ({color, size}) => {
-            return <Feather name="home" color={color} size={size}/>
-          }
+          title: 'Início'
         }}
       />
 
-      <Tab.Screen 
-        name='Sobre'
+      <Drawer.Screen
+        name="Sobre"
         component={Sobre}
-        options={{
-          tabBarIcon: ({color, size}) => {
-            return <Feather name="file-text" color={color} size={size}/>
-          }
-        }}
       />
 
-      <Tab.Screen 
-        name='Contato'
+      <Drawer.Screen
+        name="Contato"
         component={Contato}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({color, size}) => {
-            return <Feather name="phone-call" color={color} size={size}/>
-          }
-        }}
       />
-
-    </Tab.Navigator>
+    </Drawer.Navigator>
   )
 }
